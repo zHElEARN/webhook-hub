@@ -2,10 +2,10 @@
 	let { form } = $props();
 </script>
 
-<h1>Login</h1>
+<h1>登录</h1>
 
 <form method="POST">
-	<input name="password" type="password" placeholder="Admin password" required />
+	<input name="password" type="password" placeholder="管理员密码" required />
 	<button type="submit">登录</button>
 </form>
 

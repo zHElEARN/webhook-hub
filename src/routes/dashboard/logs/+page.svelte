@@ -1,5 +1,20 @@
 <script lang="ts">
+	import ConfirmDeleteModal from '$lib/components/ConfirmDeleteModal.svelte';
+
 	let { data } = $props();
+
+	let pendingDeleteId = $state<string | null>(null);
+	let deleteModalOpen = $state(false);
+
+	const openDeleteModal = (id: string) => {
+		pendingDeleteId = id;
+		deleteModalOpen = true;
+	};
+
+	const closeDeleteModal = () => {
+		deleteModalOpen = false;
+		pendingDeleteId = null;
+	};
 </script>
 
 <svelte:head>
@@ -18,13 +33,14 @@
 		</div>
 	{:else}
 		<div class="overflow-x-auto rounded-md border border-zinc-200">
-			<table class="w-full min-w-[860px] text-left text-sm">
+			<table class="w-full min-w-[940px] text-left text-sm">
 				<thead class="bg-zinc-50 text-zinc-600">
 					<tr>
 						<th class="px-4 py-3 font-medium">ID</th>
 						<th class="px-4 py-3 font-medium">Config ID</th>
 						<th class="px-4 py-3 font-medium">Config Name</th>
 						<th class="px-4 py-3 font-medium">Created At</th>
+						<th class="px-4 py-3 font-medium">操作</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,6 +70,15 @@
 							<td class="px-4 py-3 text-zinc-600"
 								>{new Date(log.createdAt).toLocaleString('zh-CN')}</td
 							>
+							<td class="px-4 py-3">
+								<button
+									type="button"
+									onclick={() => openDeleteModal(log.id)}
+									class="inline-flex h-8 items-center justify-center rounded-md border border-zinc-300 px-3 text-zinc-700 transition-colors hover:bg-zinc-50"
+								>
+									删除
+								</button>
+							</td>
 						</tr>
 					{/each}
 				</tbody>
@@ -61,3 +86,15 @@
 		</div>
 	{/if}
 </section>
+
+<ConfirmDeleteModal
+	open={deleteModalOpen}
+	title="确认删除日志"
+	message="删除后不可恢复，是否继续？"
+	itemLabel="日志 ID"
+	itemValue={pendingDeleteId}
+	action="?/delete"
+	hiddenName="id"
+	hiddenValue={pendingDeleteId}
+	onCancel={closeDeleteModal}
+/>

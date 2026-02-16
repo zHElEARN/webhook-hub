@@ -24,6 +24,7 @@
 					<td>{config.id}</td>
 					<td>{config.name}</td>
 					<td>
+						<a href={`/dashboard/edit/${config.id}`}>编辑</a>
 						<a href={`/dashboard/logs/${config.id}`}>查看日志</a>
 						<form method="POST" action="?/delete">
 							<input type="hidden" name="id" value={config.id} />

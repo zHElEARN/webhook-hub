@@ -2,8 +2,11 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { db } from '$lib/server/db';
 import { webhookConfigs, webhookLogs } from '$lib/server/db/schema';
+import { createRouteLogger, getErrorMessage } from '$lib/server/logger';
 import { eq } from 'drizzle-orm';
 import { Script } from 'node:vm';
+
+const logger = createRouteLogger('/api/[configId]');
 
 const pureFetch = (url: string | URL | Request, init?: RequestInit) => {
 	return globalThis.fetch(url, init);
@@ -61,10 +64,11 @@ async function handle(configId: string, payload: unknown, siteUrl: string) {
 	const row = config[0];
 
 	if (!row) {
-		return json({ success: false });
+		logger.info('config_not_found', { configId });
+		return json({ success: false, error: 'Webhook config not found' }, { status: 404 });
 	}
 
-	console.log('Matched webhook config:', row);
+	logger.info('config_matched', { configId: row.id });
 
 	const parsedMessage = await runParserScript(row.parserScript, payload);
 	if (!parsedMessage) {
@@ -80,9 +84,8 @@ async function handle(configId: string, payload: unknown, siteUrl: string) {
 		parsedMessage
 	});
 
-	console.log('Created webhook log id:', logId);
-
-	console.log('Parsed message:', parsedMessage);
+	logger.info('webhook_log_created', { logId, configId: row.id });
+	logger.info('payload_parsed', { logId, configId: row.id, parsedMessage });
 
 	await runPusherScript(row.pusherScript, parsedMessage, logId, siteUrl);
 
@@ -95,9 +98,21 @@ export const POST: RequestHandler = async ({ params, request }) => {
 
 	try {
 		payload = await request.json();
-	} catch {
-		throw new Error('Invalid JSON payload');
+	} catch (error) {
+		logger.error('invalid_json_payload', {
+			configId: params.configId,
+			error: getErrorMessage(error)
+		});
+		return json({ success: false, error: 'Invalid JSON payload' }, { status: 400 });
 	}
 
-	return handle(params.configId, payload, siteUrl);
+	try {
+		return await handle(params.configId, payload, siteUrl);
+	} catch (error) {
+		logger.error('webhook_handle_failed', {
+			configId: params.configId,
+			error: getErrorMessage(error)
+		});
+		return json({ success: false, error: 'Failed to process webhook request' }, { status: 500 });
+	}
 };

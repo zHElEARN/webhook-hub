@@ -45,8 +45,7 @@
 				name="parserScript"
 				required
 				class="min-h-56 w-full rounded-md border border-zinc-300 bg-white px-3 py-2 font-mono text-sm text-zinc-900 transition-colors outline-none placeholder:text-zinc-400 focus:border-zinc-400"
-			>
-				{data.config.parserScript}
+				>{data.config.parserScript}
 			</textarea>
 			<ScriptExample type="parser" />
 		</div>
@@ -58,8 +57,7 @@
 				name="pusherScript"
 				required
 				class="min-h-56 w-full rounded-md border border-zinc-300 bg-white px-3 py-2 font-mono text-sm text-zinc-900 transition-colors outline-none placeholder:text-zinc-400 focus:border-zinc-400"
-			>
-				{data.config.pusherScript}
+				>{data.config.pusherScript}
 			</textarea>
 			<ScriptExample type="pusher" />
 		</div>

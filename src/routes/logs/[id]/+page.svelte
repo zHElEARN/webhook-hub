@@ -27,13 +27,60 @@
 			timeZone: currentTimeZone
 		});
 	}
+
+	function formatRequestPayload(payload: unknown): string {
+		if (payload == null) {
+			return '';
+		}
+
+		if (typeof payload === 'string') {
+			try {
+				return JSON.stringify(JSON.parse(payload), null, 2);
+			} catch {
+				return payload;
+			}
+		}
+
+		return JSON.stringify(payload, null, 2);
+	}
 </script>
 
-<h1>日志详情</h1>
+<svelte:head>
+	<title>日志详情 · Webhook Hub</title>
+</svelte:head>
 
-<p><strong>ID:</strong> {data.log.id}</p>
-<p><strong>请求内容:</strong></p>
-<pre><code>{data.log.requestPayload ?? ''}</code></pre>
-<p><strong>解析结果:</strong></p>
-<pre><code>{data.log.parsedMessage ?? ''}</code></pre>
-<p><strong>创建时间:</strong> {formatCreatedAt(data.log.createdAt)}</p>
+<main class="min-h-screen bg-white text-zinc-900">
+	<section class="mx-auto w-full max-w-5xl px-6 py-8">
+		<div class="mb-6">
+			<h1 class="text-lg font-semibold tracking-tight">日志详情</h1>
+			<p class="mt-1 text-sm text-zinc-600">查看本次请求的原始内容与解析结果。</p>
+		</div>
+
+		<div class="space-y-6">
+			<div class="space-y-1">
+				<p class="text-xs text-zinc-500">ID</p>
+				<p class="font-mono text-xs text-zinc-700">{data.log.id}</p>
+				<p class="pt-2 text-xs text-zinc-500">创建时间</p>
+				<p class="text-sm text-zinc-700">{formatCreatedAt(data.log.createdAt)}</p>
+			</div>
+
+			<div>
+				<h2 class="text-sm font-medium text-zinc-900">请求内容（JSON）</h2>
+				<div class="mt-3 overflow-x-auto rounded-md border border-zinc-200 bg-zinc-50 p-3">
+					<pre class="font-mono text-xs leading-6 text-zinc-700"><code
+							>{formatRequestPayload(data.log.requestPayload)}</code
+						></pre>
+				</div>
+			</div>
+
+			<div>
+				<h2 class="text-sm font-medium text-zinc-900">解析结果</h2>
+				<div class="mt-3 overflow-x-auto rounded-md border border-zinc-200 bg-zinc-50 p-3">
+					<pre class="font-mono text-xs leading-6 text-zinc-700"><code
+							>{data.log.parsedMessage ?? ''}</code
+						></pre>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>

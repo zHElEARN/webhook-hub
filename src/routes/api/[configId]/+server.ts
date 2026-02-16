@@ -5,6 +5,10 @@ import { webhookConfigs } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
 import { Script } from 'node:vm';
 
+const pureFetch = (url: string | URL | Request, init?: RequestInit) => {
+	return globalThis.fetch(url, init);
+};
+
 async function runParserScript(parserScript: string, payload: unknown): Promise<string> {
 	const wrappedScript = `(async () => {\n${parserScript}\n})()`;
 	const vmScript = new Script(wrappedScript);
@@ -23,6 +27,23 @@ async function runParserScript(parserScript: string, payload: unknown): Promise<
 	}
 
 	return result;
+}
+
+async function runPusherScript(pusherScript: string, message: string): Promise<void> {
+	const wrappedScript = `(async () => {\n${pusherScript}\n})()`;
+	const vmScript = new Script(wrappedScript);
+
+	const execution = vmScript.runInNewContext(
+		{ message, fetch: pureFetch },
+		{ timeout: 10000 }
+	) as Promise<unknown>;
+
+	await Promise.race([
+		execution,
+		new Promise<never>((_, reject) => {
+			setTimeout(() => reject(new Error('Pusher script execution timeout (10s)')), 10000);
+		})
+	]);
 }
 
 async function handle(configId: string, payload: unknown) {
@@ -47,8 +68,10 @@ async function handle(configId: string, payload: unknown) {
 
 	console.log('Parsed message:', parsedMessage);
 
+	await runPusherScript(row.pusherScript, parsedMessage);
+
 	return json({ success: true });
-};
+}
 
 export const POST: RequestHandler = async ({ params, request }) => {
 	let payload: unknown;

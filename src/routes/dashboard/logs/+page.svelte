@@ -22,8 +22,14 @@
 			{#each data.logs as log}
 				<tr>
 					<td>{log.id}</td>
-					<td><a href={`/dashboard/logs/${log.configId}`}>{log.configId}</a></td>
-					<td>{log.configName}</td>
+					<td>
+						{#if log.configId}
+							<a href={`/dashboard/logs/${log.configId}`}>{log.configId}</a>
+						{:else}
+							已删除配置
+						{/if}
+					</td>
+					<td>{log.configName ?? '已删除配置'}</td>
 					<td>{log.createdAt}</td>
 				</tr>
 			{/each}

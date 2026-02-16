@@ -14,9 +14,7 @@ export const webhookLogs = sqliteTable('webhook_logs', {
 	id: text('id')
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID()),
-	configId: text('config_id')
-		.notNull()
-		.references(() => webhookConfigs.id, { onDelete: 'cascade' }),
+	configId: text('config_id').references(() => webhookConfigs.id, { onDelete: 'set null' }),
 	requestPayload: text('request_payload'),
 	parsedMessage: text('parsed_message'),
 	createdAt: text('created_at')

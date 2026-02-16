@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
 			createdAt: webhookLogs.createdAt
 		})
 		.from(webhookLogs)
-		.innerJoin(webhookConfigs, eq(webhookLogs.configId, webhookConfigs.id))
+		.leftJoin(webhookConfigs, eq(webhookLogs.configId, webhookConfigs.id))
 		.orderBy(desc(webhookLogs.createdAt));
 
 	return { logs };

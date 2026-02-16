@@ -55,10 +55,7 @@ const response = await fetch(targetUrl, {
 // 4. 检查结果
 if (!response.ok) {
 	throw new Error(\`推送失败! HTTP 状态码: \${response.status}\`);
-}
-
-// 【可选】返回接口响应结果，这将显示在系统的“历史记录”中
-return await response.json();`;
+}`;
 </script>
 
 <h1>创建配置</h1>

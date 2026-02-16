@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>Webhook Hub</title>
+	<title>首页 · Webhook Hub</title>
 </svelte:head>
 
 <main class="flex flex-1 flex-col bg-white text-zinc-900">

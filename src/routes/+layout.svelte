@@ -21,7 +21,16 @@
 		>
 			Zhe_Learn
 		</a>
-		制作 ·
+		制作（由
+		<a
+			href="https://github.com/features/copilot"
+			target="_blank"
+			rel="noreferrer"
+			class="underline underline-offset-2 transition-colors hover:text-zinc-700"
+		>
+			Copilot
+		</a>
+		辅助完成） ·
 		<a
 			href="https://github.com/zHElEARN/webhook-hub"
 			target="_blank"

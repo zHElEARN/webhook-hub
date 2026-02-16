@@ -2,6 +2,10 @@
 	let { data } = $props();
 </script>
 
+<svelte:head>
+	<title>控制台首页 · Webhook Hub</title>
+</svelte:head>
+
 <section class="mx-auto w-full max-w-6xl px-6 py-8">
 	<div class="mb-6 flex items-center justify-between gap-4">
 		<h2 class="text-lg font-semibold tracking-tight">配置列表</h2>

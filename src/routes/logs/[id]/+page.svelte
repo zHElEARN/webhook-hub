@@ -49,7 +49,7 @@
 	<title>日志详情 · Webhook Hub</title>
 </svelte:head>
 
-<main class="min-h-screen bg-white text-zinc-900">
+<main class="h-full bg-white text-zinc-900">
 	<section class="mx-auto w-full max-w-5xl px-6 py-8">
 		<div class="mb-6">
 			<h1 class="text-lg font-semibold tracking-tight">日志详情</h1>

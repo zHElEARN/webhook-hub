@@ -6,7 +6,7 @@
 	<title>登录 · Webhook Hub</title>
 </svelte:head>
 
-<main class="flex min-h-screen items-center justify-center bg-white px-6 py-16 text-zinc-900">
+<main class="flex h-full items-center justify-center bg-white px-6 py-16 text-zinc-900">
 	<section class="w-full max-w-sm">
 		<p class="text-xs font-medium tracking-[0.22em] text-zinc-500 uppercase">Webhook Hub</p>
 		<h1 class="mt-3 text-2xl font-semibold tracking-tight">登录</h1>

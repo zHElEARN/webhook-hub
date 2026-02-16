@@ -2,7 +2,7 @@
 	<title>Webhook Hub</title>
 </svelte:head>
 
-<main class="flex min-h-screen flex-col bg-white text-zinc-900">
+<main class="flex flex-1 flex-col bg-white text-zinc-900">
 	<section
 		class="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 py-16 text-center"
 	>
@@ -29,25 +29,4 @@
 			</a>
 		</div>
 	</section>
-
-	<footer class="px-6 pb-8 text-center text-xs text-zinc-500">
-		由
-		<a
-			href="https://github.com/zHElEARN"
-			target="_blank"
-			rel="noreferrer"
-			class="underline underline-offset-2 transition-colors hover:text-zinc-700"
-		>
-			Zhe_Learn
-		</a>
-		制作 ·
-		<a
-			href="https://github.com/zHElEARN/webhook-hub"
-			target="_blank"
-			rel="noreferrer"
-			class="underline underline-offset-2 transition-colors hover:text-zinc-700"
-		>
-			开源地址
-		</a>
-	</footer>
 </main>

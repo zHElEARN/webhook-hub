@@ -2,7 +2,7 @@
 	let { children } = $props();
 </script>
 
-<main class="min-h-screen bg-white text-zinc-900">
+<main class="h-full bg-white text-zinc-900">
 	<header class="border-b border-zinc-200">
 		<div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-4">
 			<div class="min-w-0">

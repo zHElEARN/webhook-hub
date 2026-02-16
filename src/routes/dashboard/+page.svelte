@@ -5,6 +5,7 @@
 <h1>控制台</h1>
 
 <a href="/dashboard/create">创建配置</a>
+<a href="/dashboard/logs">查看全部日志</a>
 
 {#if data.configs.length === 0}
 	<p>暂无配置</p>
@@ -23,6 +24,7 @@
 					<td>{config.id}</td>
 					<td>{config.name}</td>
 					<td>
+						<a href={`/dashboard/logs/${config.id}`}>查看日志</a>
 						<form method="POST" action="?/delete">
 							<input type="hidden" name="id" value={config.id} />
 							<button type="submit">删除</button>

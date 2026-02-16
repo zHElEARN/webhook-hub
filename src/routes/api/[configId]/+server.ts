@@ -29,12 +29,17 @@ async function runParserScript(parserScript: string, payload: unknown): Promise<
 	return result;
 }
 
-async function runPusherScript(pusherScript: string, message: string): Promise<void> {
+async function runPusherScript(
+	pusherScript: string,
+	message: string,
+	id: string,
+	url: string
+): Promise<void> {
 	const wrappedScript = `(async () => {\n${pusherScript}\n})()`;
 	const vmScript = new Script(wrappedScript);
 
 	const execution = vmScript.runInNewContext(
-		{ message, fetch: pureFetch },
+		{ message, id, url, fetch: pureFetch },
 		{ timeout: 10000 }
 	) as Promise<unknown>;
 
@@ -46,7 +51,7 @@ async function runPusherScript(pusherScript: string, message: string): Promise<v
 	]);
 }
 
-async function handle(configId: string, payload: unknown) {
+async function handle(configId: string, payload: unknown, siteUrl: string) {
 	const config = await db
 		.select()
 		.from(webhookConfigs)
@@ -79,13 +84,14 @@ async function handle(configId: string, payload: unknown) {
 
 	console.log('Parsed message:', parsedMessage);
 
-	await runPusherScript(row.pusherScript, parsedMessage);
+	await runPusherScript(row.pusherScript, parsedMessage, logId, siteUrl);
 
 	return json({ success: true });
 }
 
 export const POST: RequestHandler = async ({ params, request }) => {
 	let payload: unknown;
+	const siteUrl = new URL(request.url).origin;
 
 	try {
 		payload = await request.json();
@@ -93,5 +99,5 @@ export const POST: RequestHandler = async ({ params, request }) => {
 		throw new Error('Invalid JSON payload');
 	}
 
-	return handle(params.configId, payload);
+	return handle(params.configId, payload, siteUrl);
 };

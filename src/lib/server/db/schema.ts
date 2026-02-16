@@ -19,5 +19,7 @@ export const webhookLogs = sqliteTable('webhook_logs', {
 		.references(() => webhookConfigs.id, { onDelete: 'cascade' }),
 	requestPayload: text('request_payload'),
 	parsedMessage: text('parsed_message'),
-	createdAt: text('created_at').notNull().default(sql`CURRENT_TIMESTAMP`)
+	createdAt: text('created_at')
+		.notNull()
+		.default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`)
 });

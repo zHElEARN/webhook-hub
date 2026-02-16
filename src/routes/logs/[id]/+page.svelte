@@ -24,8 +24,7 @@
 		}
 
 		return createdAtDate.toLocaleString(undefined, {
-			timeZone: currentTimeZone,
-			timeZoneName: 'short'
+			timeZone: currentTimeZone
 		});
 	}
 </script>
@@ -38,4 +37,3 @@
 <p><strong>解析结果:</strong></p>
 <pre><code>{data.log.parsedMessage ?? ''}</code></pre>
 <p><strong>创建时间:</strong> {formatCreatedAt(data.log.createdAt)}</p>
-<p><strong>当前时区:</strong> {currentTimeZone}</p>

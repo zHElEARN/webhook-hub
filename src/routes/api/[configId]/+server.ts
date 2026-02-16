@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { db } from '$lib/server/db';
-import { webhookConfigs } from '$lib/server/db/schema';
+import { webhookConfigs, webhookLogs } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
 import { Script } from 'node:vm';
 
@@ -65,6 +65,17 @@ async function handle(configId: string, payload: unknown) {
 	if (!parsedMessage) {
 		throw new Error('Parser script did not return a message');
 	}
+
+	const logId = crypto.randomUUID();
+
+	await db.insert(webhookLogs).values({
+		id: logId,
+		configId: row.id,
+		requestPayload: JSON.stringify(payload),
+		parsedMessage
+	});
+
+	console.log('Created webhook log id:', logId);
 
 	console.log('Parsed message:', parsedMessage);
 

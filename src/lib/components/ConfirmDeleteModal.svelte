@@ -1,4 +1,8 @@
 <script lang="ts">
+	import * as AlertDialog from '$lib/components/ui/alert-dialog';
+	import { Button } from '$lib/components/ui/button';
+	import { Badge } from '$lib/components/ui/badge';
+
 	type Props = {
 		open: boolean;
 		title: string;
@@ -28,33 +32,27 @@
 	}: Props = $props();
 </script>
 
-{#if open && hiddenValue}
-	<div class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/30 px-4">
-		<div class="w-full max-w-md rounded-md border border-zinc-200 bg-white p-5 shadow-sm">
-			<h3 class="text-base font-semibold text-zinc-900">{title}</h3>
-			<p class="mt-2 text-sm text-zinc-600">{message}</p>
+{#if hiddenValue}
+	<AlertDialog.Root bind:open>
+		<AlertDialog.Content>
+			<AlertDialog.Header>
+				<AlertDialog.Title>{title}</AlertDialog.Title>
+				<AlertDialog.Description>{message}</AlertDialog.Description>
+			</AlertDialog.Header>
+
 			{#if itemLabel && itemValue}
-				<p class="mt-1 font-mono text-xs text-zinc-700">{itemLabel}：{itemValue}</p>
+				<div>
+					<Badge variant="secondary" class="font-mono text-xs">{itemLabel}：{itemValue}</Badge>
+				</div>
 			{/if}
 
-			<div class="mt-5 flex items-center justify-end gap-2">
-				<button
-					type="button"
-					onclick={onCancel}
-					class="inline-flex h-9 items-center justify-center rounded-md border border-zinc-300 px-3 text-sm text-zinc-700 transition-colors hover:bg-zinc-50"
-				>
-					{cancelText}
-				</button>
+			<AlertDialog.Footer>
+				<AlertDialog.Cancel onclick={onCancel}>{cancelText}</AlertDialog.Cancel>
 				<form method="POST" {action}>
 					<input type="hidden" name={hiddenName} value={hiddenValue} />
-					<button
-						type="submit"
-						class="inline-flex h-9 items-center justify-center rounded-md bg-zinc-900 px-3 text-sm font-medium text-white transition-colors hover:bg-zinc-800"
-					>
-						{confirmText}
-					</button>
+					<Button type="submit" variant="destructive">{confirmText}</Button>
 				</form>
-			</div>
-		</div>
-	</div>
+			</AlertDialog.Footer>
+		</AlertDialog.Content>
+	</AlertDialog.Root>
 {/if}

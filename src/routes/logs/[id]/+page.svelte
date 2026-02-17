@@ -1,4 +1,13 @@
 <script lang="ts">
+	import { Badge } from '$lib/components/ui/badge';
+	import {
+		Card,
+		CardContent,
+		CardDescription,
+		CardHeader,
+		CardTitle
+	} from '$lib/components/ui/card';
+
 	let { data } = $props();
 
 	const currentTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -51,36 +60,49 @@
 
 <main class="h-full bg-white text-zinc-900">
 	<section class="mx-auto w-full max-w-5xl px-6 py-8">
-		<div class="mb-6">
-			<h1 class="text-lg font-semibold tracking-tight">日志详情</h1>
-			<p class="mt-1 text-sm text-zinc-600">查看本次请求的原始内容与解析结果。</p>
-		</div>
-
 		<div class="space-y-6">
-			<div class="space-y-1">
-				<p class="text-xs text-zinc-500">ID</p>
-				<p class="font-mono text-xs text-zinc-700">{data.log.id}</p>
-				<p class="pt-2 text-xs text-zinc-500">创建时间</p>
-				<p class="text-sm text-zinc-700">{formatCreatedAt(data.log.createdAt)}</p>
-			</div>
+			<Card>
+				<CardHeader>
+					<CardTitle>日志详情</CardTitle>
+					<CardDescription>查看本次请求的原始内容与解析结果。</CardDescription>
+				</CardHeader>
+				<CardContent class="space-y-3">
+					<div class="space-y-1">
+						<p class="text-xs text-zinc-500">ID</p>
+						<Badge variant="secondary" class="font-mono text-xs">{data.log.id}</Badge>
+					</div>
+					<div class="space-y-1">
+						<p class="text-xs text-zinc-500">创建时间</p>
+						<p class="text-sm text-zinc-700">{formatCreatedAt(data.log.createdAt)}</p>
+					</div>
+				</CardContent>
+			</Card>
 
-			<div>
-				<h2 class="text-sm font-medium text-zinc-900">请求内容（JSON）</h2>
-				<div class="mt-3 overflow-x-auto rounded-md border border-zinc-200 bg-zinc-50 p-3">
-					<pre class="font-mono text-xs leading-6 text-zinc-700"><code
-							>{formatRequestPayload(data.log.requestPayload)}</code
-						></pre>
-				</div>
-			</div>
+			<Card>
+				<CardHeader>
+					<CardTitle class="text-base">请求内容（JSON）</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<div class="overflow-x-auto rounded-md bg-muted p-3">
+						<pre class="font-mono text-xs leading-6 text-zinc-700"><code
+								>{formatRequestPayload(data.log.requestPayload)}</code
+							></pre>
+					</div>
+				</CardContent>
+			</Card>
 
-			<div>
-				<h2 class="text-sm font-medium text-zinc-900">解析结果</h2>
-				<div class="mt-3 overflow-x-auto rounded-md border border-zinc-200 bg-zinc-50 p-3">
-					<pre class="font-mono text-xs leading-6 text-zinc-700"><code
-							>{data.log.parsedMessage ?? ''}</code
-						></pre>
-				</div>
-			</div>
+			<Card>
+				<CardHeader>
+					<CardTitle class="text-base">解析结果</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<div class="overflow-x-auto rounded-md bg-muted p-3">
+						<pre class="font-mono text-xs leading-6 text-zinc-700"><code
+								>{data.log.parsedMessage ?? ''}</code
+							></pre>
+					</div>
+				</CardContent>
+			</Card>
 		</div>
 	</section>
 </main>

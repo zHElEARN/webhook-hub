@@ -1,5 +1,8 @@
 <script lang="ts">
 	import ConfirmDeleteModal from '$lib/components/ConfirmDeleteModal.svelte';
+	import { Alert, AlertDescription } from '$lib/components/ui/alert';
+	import { Button } from '$lib/components/ui/button';
+	import * as Table from '$lib/components/ui/table';
 
 	let { data } = $props();
 
@@ -28,62 +31,59 @@
 	</div>
 
 	{#if data.logs.length === 0}
-		<div class="rounded-md border border-zinc-200 bg-zinc-50 px-4 py-6 text-sm text-zinc-600">
-			暂无日志
-		</div>
+		<Alert>
+			<AlertDescription>暂无日志</AlertDescription>
+		</Alert>
 	{:else}
-		<div class="overflow-x-auto rounded-md border border-zinc-200">
-			<table class="w-full min-w-[940px] text-left text-sm">
-				<thead class="bg-zinc-50 text-zinc-600">
-					<tr>
-						<th class="px-4 py-3 font-medium">ID</th>
-						<th class="px-4 py-3 font-medium">Config ID</th>
-						<th class="px-4 py-3 font-medium">Config Name</th>
-						<th class="px-4 py-3 font-medium">Created At</th>
-						<th class="px-4 py-3 font-medium">操作</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each data.logs as log}
-						<tr class="border-t border-zinc-200">
-							<td class="px-4 py-3">
-								<a
-									href={`/logs/${log.id}`}
-									class="inline-flex rounded px-1 py-0.5 font-mono text-xs text-zinc-700 underline underline-offset-2 transition-colors hover:text-zinc-900"
+		<Table.Root class="min-w-[940px]">
+			<Table.Header>
+				<Table.Row>
+					<Table.Head>ID</Table.Head>
+					<Table.Head>Config ID</Table.Head>
+					<Table.Head>Config Name</Table.Head>
+					<Table.Head>Created At</Table.Head>
+					<Table.Head>操作</Table.Head>
+				</Table.Row>
+			</Table.Header>
+			<Table.Body>
+				{#each data.logs as log}
+					<Table.Row>
+						<Table.Cell>
+							<Button href={`/logs/${log.id}`} variant="link" class="font-mono text-xs">
+								{log.id}
+							</Button>
+						</Table.Cell>
+						<Table.Cell>
+							{#if log.configId}
+								<Button
+									href={`/dashboard/logs/${log.configId}`}
+									variant="link"
+									class="font-mono text-xs"
 								>
-									{log.id}
-								</a>
-							</td>
-							<td class="px-4 py-3 text-zinc-700">
-								{#if log.configId}
-									<a
-										href={`/dashboard/logs/${log.configId}`}
-										class="inline-flex rounded px-1 py-0.5 font-mono text-xs text-zinc-700 underline underline-offset-2 transition-colors hover:text-zinc-900"
-									>
-										{log.configId}
-									</a>
-								{:else}
-									<span class="text-zinc-500">已删除配置</span>
-								{/if}
-							</td>
-							<td class="px-4 py-3 text-zinc-900">{log.configName ?? '已删除配置'}</td>
-							<td class="px-4 py-3 text-zinc-600"
-								>{new Date(log.createdAt).toLocaleString('zh-CN')}</td
+									{log.configId}
+								</Button>
+							{:else}
+								<span class="text-muted-foreground">已删除配置</span>
+							{/if}
+						</Table.Cell>
+						<Table.Cell>{log.configName ?? '已删除配置'}</Table.Cell>
+						<Table.Cell class="text-muted-foreground"
+							>{new Date(log.createdAt).toLocaleString('zh-CN')}</Table.Cell
+						>
+						<Table.Cell>
+							<Button
+								type="button"
+								variant="outline"
+								size="sm"
+								onclick={() => openDeleteModal(log.id)}
 							>
-							<td class="px-4 py-3">
-								<button
-									type="button"
-									onclick={() => openDeleteModal(log.id)}
-									class="inline-flex h-8 items-center justify-center rounded-md border border-zinc-300 px-3 text-zinc-700 transition-colors hover:bg-zinc-50"
-								>
-									删除
-								</button>
-							</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</div>
+								删除
+							</Button>
+						</Table.Cell>
+					</Table.Row>
+				{/each}
+			</Table.Body>
+		</Table.Root>
 	{/if}
 </section>
 

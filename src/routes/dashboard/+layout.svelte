@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Button } from '$lib/components/ui/button';
+
 	let { children } = $props();
 </script>
 
@@ -11,25 +13,10 @@
 			</div>
 
 			<nav class="flex items-center gap-2 text-sm">
-				<a
-					href="/dashboard"
-					class="inline-flex h-9 items-center justify-center rounded-md border border-zinc-300 px-3 text-zinc-700 transition-colors hover:bg-zinc-50"
-				>
-					控制台首页
-				</a>
-				<a
-					href="/dashboard/logs"
-					class="inline-flex h-9 items-center justify-center rounded-md border border-zinc-300 px-3 text-zinc-700 transition-colors hover:bg-zinc-50"
-				>
-					查看所有日志
-				</a>
+				<Button href="/dashboard" variant="outline">控制台首页</Button>
+				<Button href="/dashboard/logs" variant="outline">查看所有日志</Button>
 				<form method="POST" action="/dashboard?/logout">
-					<button
-						type="submit"
-						class="inline-flex h-9 items-center justify-center rounded-md bg-zinc-900 px-3 text-white transition-colors hover:bg-zinc-800"
-					>
-						退出
-					</button>
+					<Button type="submit">退出</Button>
 				</form>
 			</nav>
 		</div>

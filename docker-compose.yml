@@ -1,0 +1,13 @@
+services:
+  webhook-hub:
+    image: webhook-hub:latest
+    container_name: webhook-hub
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: /app/data/webhook-hub.db
+      ADMIN_PASSWORD: admin
+    volumes:
+      - ./data:/app/data

@@ -6,6 +6,6 @@
 const monitorName = payload.monitor?.name || '未知监视器';
 const statusMsg = payload.msg || '无状态信息';
 
-const message = `[Uptime Kuma Webhook]\n监视器: ${monitorName}\n信息: ${statusMsg}`;
+const message = `[Uptime Kuma]\n监视器: ${monitorName}\n信息: ${statusMsg}`;
 
 return message.trim();

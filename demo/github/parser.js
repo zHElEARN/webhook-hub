@@ -6,7 +6,7 @@
 const repository = payload.repository?.full_name || '未知仓库';
 const pusher = payload.pusher?.name || '未知用户';
 
-let message = `[GitHub Webhook]\n仓库: ${repository}\n推送者: ${pusher}`;
+let message = `[GitHub]\n仓库: ${repository}\n推送者: ${pusher}`;
 
 const commits = payload.commits || [];
 

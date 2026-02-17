@@ -25,7 +25,7 @@
 	<title>配置日志 · Webhook Hub</title>
 </svelte:head>
 
-<section class="mx-auto w-full max-w-6xl px-6 py-8">
+<section class="page-container py-8">
 	<div class="mb-6">
 		<h2 class="text-lg font-semibold tracking-tight">配置日志</h2>
 		<div class="mt-2 space-y-1 text-sm text-zinc-600">

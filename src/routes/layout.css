@@ -126,3 +126,9 @@
 		overflow-y: auto;
 	}
 }
+
+@layer components {
+	.page-container {
+		@apply mx-auto w-full max-w-6xl px-6;
+	}
+}

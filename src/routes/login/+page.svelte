@@ -19,7 +19,8 @@
 </svelte:head>
 
 <main class="flex h-full items-center justify-center bg-white px-6 py-16 text-zinc-900">
-	<section class="w-full max-w-sm">
+	<section class="page-container">
+		<div class="mx-auto w-full max-w-sm">
 		<Card>
 			<CardHeader>
 				<p class="text-xs font-medium tracking-[0.22em] text-zinc-500 uppercase">Webhook Hub</p>
@@ -48,5 +49,6 @@
 				{/if}
 			</CardContent>
 		</Card>
+		</div>
 	</section>
 </main>

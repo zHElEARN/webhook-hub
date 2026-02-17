@@ -52,8 +52,8 @@
 </svelte:head>
 
 <main class="h-full bg-white text-zinc-900">
-	<section class="mx-auto w-full max-w-5xl px-6 py-8">
-		<div class="mx-auto w-full max-w-4xl space-y-8">
+	<section class="page-container py-8">
+		<div class="w-full space-y-8">
 			<header class="space-y-2">
 				<h1 class="text-2xl font-semibold tracking-tight">日志详情</h1>
 				<p class="text-sm text-zinc-600">查看本次请求的原始内容与解析结果。</p>

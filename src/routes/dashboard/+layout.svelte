@@ -6,7 +6,7 @@
 
 <main class="h-full bg-white text-zinc-900">
 	<header class="border-b border-zinc-200">
-		<div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-4">
+		<div class="page-container flex items-center justify-between gap-4 py-4">
 			<div class="min-w-0">
 				<p class="text-xs font-medium tracking-[0.2em] text-zinc-500 uppercase">Webhook Hub</p>
 				<h1 class="mt-1 truncate text-base font-semibold">控制台</h1>

@@ -7,9 +7,7 @@
 </svelte:head>
 
 <main class="flex flex-1 flex-col bg-white text-zinc-900">
-	<section
-		class="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 py-16 text-center"
-	>
+	<section class="page-container flex flex-1 flex-col items-center justify-center py-16 text-center">
 		<div class="flex w-full max-w-2xl flex-col items-center gap-6 text-center">
 			<p class="text-xs font-medium tracking-[0.24em] text-zinc-500 uppercase">Webhook Hub</p>
 			<h1 class="text-4xl tracking-tight sm:text-5xl">简单管理你的 Webhook</h1>

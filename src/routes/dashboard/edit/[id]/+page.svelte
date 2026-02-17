@@ -13,8 +13,8 @@
 	<title>编辑配置 · Webhook Hub</title>
 </svelte:head>
 
-<section class="mx-auto w-full max-w-6xl px-6 py-8">
-	<div class="mx-auto w-full max-w-4xl space-y-6">
+<section class="page-container py-8">
+	<div class="w-full space-y-6">
 		<header class="space-y-1">
 			<h1 class="text-2xl font-semibold tracking-tight">编辑配置</h1>
 			<p class="text-sm text-zinc-600">修改名称与脚本内容后保存。</p>

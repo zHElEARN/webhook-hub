@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1771188449343,
-      "tag": "0000_loose_vivisector",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1771267587306,
-      "tag": "0001_clean_dormammu",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1771268585132,
-      "tag": "0002_overjoyed_payback",
+      "when": 1771319947443,
+      "tag": "0000_tiny_spyke",
       "breakpoints": true
     }
   ]

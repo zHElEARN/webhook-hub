@@ -5,6 +5,7 @@ import { webhookConfigs, webhookLogs } from '$lib/server/db/schema';
 import { createRouteLogger, getErrorMessage } from '$lib/server/logger';
 import { eq } from 'drizzle-orm';
 import { Script } from 'node:vm';
+import { nanoid } from 'nanoid';
 
 const logger = createRouteLogger('/api/[configId]');
 
@@ -75,7 +76,7 @@ async function handle(configId: string, payload: unknown, siteUrl: string) {
 		throw new Error('Parser script did not return a message');
 	}
 
-	const logId = crypto.randomUUID();
+	const logId = nanoid();
 
 	await db.insert(webhookLogs).values({
 		id: logId,

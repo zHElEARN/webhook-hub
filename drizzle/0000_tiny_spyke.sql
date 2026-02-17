@@ -7,9 +7,9 @@ CREATE TABLE `webhook_configs` (
 --> statement-breakpoint
 CREATE TABLE `webhook_logs` (
 	`id` text PRIMARY KEY NOT NULL,
-	`config_id` text NOT NULL,
+	`config_id` text,
 	`request_payload` text,
 	`parsed_message` text,
-	`created_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	FOREIGN KEY (`config_id`) REFERENCES `webhook_configs`(`id`) ON UPDATE no action ON DELETE cascade
+	`created_at` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
+	FOREIGN KEY (`config_id`) REFERENCES `webhook_configs`(`id`) ON UPDATE no action ON DELETE set null
 );

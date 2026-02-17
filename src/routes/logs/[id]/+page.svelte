@@ -1,12 +1,5 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge';
-	import {
-		Card,
-		CardContent,
-		CardDescription,
-		CardHeader,
-		CardTitle
-	} from '$lib/components/ui/card';
 
 	let { data } = $props();
 
@@ -60,13 +53,11 @@
 
 <main class="h-full bg-white text-zinc-900">
 	<section class="mx-auto w-full max-w-5xl px-6 py-8">
-		<div class="space-y-6">
-			<Card>
-				<CardHeader>
-					<CardTitle>日志详情</CardTitle>
-					<CardDescription>查看本次请求的原始内容与解析结果。</CardDescription>
-				</CardHeader>
-				<CardContent class="space-y-3">
+		<div class="mx-auto w-full max-w-4xl space-y-8">
+			<header class="space-y-2">
+				<h1 class="text-2xl font-semibold tracking-tight">日志详情</h1>
+				<p class="text-sm text-zinc-600">查看本次请求的原始内容与解析结果。</p>
+				<div class="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-2 sm:gap-6">
 					<div class="space-y-1">
 						<p class="text-xs text-zinc-500">ID</p>
 						<Badge variant="secondary" class="font-mono text-xs">{data.log.id}</Badge>
@@ -75,34 +66,30 @@
 						<p class="text-xs text-zinc-500">创建时间</p>
 						<p class="text-sm text-zinc-700">{formatCreatedAt(data.log.createdAt)}</p>
 					</div>
-				</CardContent>
-			</Card>
+				</div>
+			</header>
 
-			<Card>
-				<CardHeader>
-					<CardTitle class="text-base">请求内容（JSON）</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<div class="overflow-x-auto rounded-md bg-muted p-3">
-						<pre class="font-mono text-xs leading-6 text-zinc-700"><code
-								>{formatRequestPayload(data.log.requestPayload)}</code
-							></pre>
-					</div>
-				</CardContent>
-			</Card>
+			<div class="h-px w-full bg-border" aria-hidden="true"></div>
 
-			<Card>
-				<CardHeader>
-					<CardTitle class="text-base">解析结果</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<div class="overflow-x-auto rounded-md bg-muted p-3">
-						<pre class="font-mono text-xs leading-6 text-zinc-700"><code
-								>{data.log.parsedMessage ?? ''}</code
-							></pre>
-					</div>
-				</CardContent>
-			</Card>
+			<section class="space-y-2">
+				<h2 class="text-base font-medium">解析结果</h2>
+				<div class="overflow-x-auto rounded-md bg-muted p-3">
+					<pre class="font-mono text-xs leading-6 text-zinc-700"><code
+							>{data.log.parsedMessage ?? ''}</code
+						></pre>
+				</div>
+			</section>
+
+			<div class="h-px w-full bg-border" aria-hidden="true"></div>
+
+			<section class="space-y-2">
+				<h2 class="text-base font-medium">请求内容（JSON）</h2>
+				<div class="overflow-x-auto rounded-md bg-muted p-3">
+					<pre class="font-mono text-xs leading-6 text-zinc-700"><code
+							>{formatRequestPayload(data.log.requestPayload)}</code
+						></pre>
+				</div>
+			</section>
 		</div>
 	</section>
 </main>

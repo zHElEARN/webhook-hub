@@ -1,6 +1,6 @@
 const targetUrl = 'http://localhost:5173/api/echo';
 const link = `${url}/l/${id}`;
-const textWithLink = `${link} ${message}`;
+const textWithLink = `${message}\n\n${link}`;
 
 await fetch(targetUrl, {
 	method: 'POST',

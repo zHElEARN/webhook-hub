@@ -22,10 +22,10 @@ if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS || !MAIL_FROM || !MAIL_TO) {
 }
 
 const detailLink = `${url}/l/${id}`;
-const textBody = `${message}\n\n详情: ${detailLink}`;
+const textBody = `${message}\n\n${detailLink}`;
 const htmlBody = `
 	<div>
-		<p>${message}</p>
+		<pre>${message}</pre>
 		<p><a href="${detailLink}">${detailLink}</a></p>
 	</div>
 `;

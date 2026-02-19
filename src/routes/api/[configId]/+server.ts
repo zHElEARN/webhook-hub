@@ -6,12 +6,9 @@ import { createRouteLogger, getErrorMessage } from '$lib/server/logger';
 import { eq } from 'drizzle-orm';
 import { Script } from 'node:vm';
 import { nanoid } from 'nanoid';
+import nodemailer from 'nodemailer';
 
 const logger = createRouteLogger('/api/[configId]');
-
-const pureFetch = (url: string | URL | Request, init?: RequestInit) => {
-	return globalThis.fetch(url, init);
-};
 
 async function runParserScript(parserScript: string, payload: unknown): Promise<string> {
 	const wrappedScript = `(async () => {\n${parserScript}\n})()`;
@@ -43,7 +40,7 @@ async function runPusherScript(
 	const vmScript = new Script(wrappedScript);
 
 	const execution = vmScript.runInNewContext(
-		{ message, id, url, fetch: pureFetch },
+		{ message, id, url, fetch, nodemailer },
 		{ timeout: 10000 }
 	) as Promise<unknown>;
 

@@ -1,12 +1,19 @@
 <script lang="ts">
+	import CodeEditor from '$lib/components/CodeEditor.svelte';
 	import ScriptExample from '$lib/components/ScriptExample.svelte';
 	import { Alert, AlertDescription } from '$lib/components/ui/alert';
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
-	import { Textarea } from '$lib/components/ui/textarea';
 
 	let { data, form } = $props();
+	let parserScript = $state('');
+	let pusherScript = $state('');
+
+	$effect(() => {
+		parserScript = data.config.parserScript;
+		pusherScript = data.config.pusherScript;
+	});
 </script>
 
 <svelte:head>
@@ -33,11 +40,10 @@
 
 			<div class="space-y-2">
 				<Label for="parserScript">解析脚本</Label>
-				<Textarea
+				<CodeEditor
 					id="parserScript"
 					name="parserScript"
-					value={data.config.parserScript}
-					required
+					bind:value={parserScript}
 					class="min-h-56 font-mono text-sm"
 				/>
 				<ScriptExample type="parser" />
@@ -45,11 +51,10 @@
 
 			<div class="space-y-2">
 				<Label for="pusherScript">推送脚本</Label>
-				<Textarea
+				<CodeEditor
 					id="pusherScript"
 					name="pusherScript"
-					value={data.config.pusherScript}
-					required
+					bind:value={pusherScript}
 					class="min-h-56 font-mono text-sm"
 				/>
 				<ScriptExample type="pusher" />
